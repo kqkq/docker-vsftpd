@@ -1,7 +1,7 @@
 FROM centos:7
 
-ARG USER_ID=14
-ARG GROUP_ID=50
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 MAINTAINER Fer Uria <fauria@gmail.com>
 LABEL Description="vsftpd Docker image based on Centos 7. Supports passive mode and virtual users." \
@@ -31,6 +31,7 @@ ENV LOG_STDOUT **Boolean**
 ENV FILE_OPEN_MODE 0666
 ENV LOCAL_UMASK 077
 ENV REVERSE_LOOKUP_ENABLE YES
+ENV ANONYMOUS_ENABLE YES
 
 COPY vsftpd.conf /etc/vsftpd/
 COPY vsftpd_virtual /etc/pam.d/

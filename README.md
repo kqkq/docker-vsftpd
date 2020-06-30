@@ -125,6 +125,13 @@ This image uses environment variables to allow the configuration of some paramet
 
 ----
 
+* Variable name: `ANONYMOUS_ENABLE`
+* Default value: YES.
+* Accepted values: YES or NO.
+* Description: Set to NO if you want to authenticate users.
+
+----
+
 Exposed ports and volumes
 ----
 
