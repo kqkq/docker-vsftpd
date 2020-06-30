@@ -29,7 +29,20 @@ if [ "$PASV_ADDRESS" = "**IPv4**" ]; then
     export PASV_ADDRESS=$(/sbin/ip route|awk '/default/ { print $3 }')
 fi
 
-echo "anonymous_enable=${ANONYMOUS_ENABLE}" >> /etc/vsftpd/vsftpd.conf
+# Set anonymous parameters:
+if [ "$ANONYMOUS_ENABLE" = "YES" ]; then
+    mkdir -p /home/vsftpd/anonymous
+    chmod a-w /home/vsftpd/anonymous
+    echo "anonymous_enable=YES" >> /etc/vsftpd/vsftpd.conf
+    echo "anon_upload_enable=YES" >> /etc/vsftpd/vsftpd.conf
+    echo "anon_mkdir_write_enable=YES" >> /etc/vsftpd/vsftpd.conf
+    echo "anonymous_enable=YES" >> /etc/vsftpd/vsftpd.conf
+    echo "anon_umask=022" >> /etc/vsftpd/vsftpd.conf
+    echo "anon_other_write_enable=YES" >> /etc/vsftpd/vsftpd.conf
+    echo "anon_root=/home/vsftpd/anonymous" >> /etc/vsftpd/vsftpd.conf
+    echo "no_anon_password=YES" >> /etc/vsftpd/vsftpd.conf
+fi
+
 echo "pasv_address=${PASV_ADDRESS}" >> /etc/vsftpd/vsftpd.conf
 echo "pasv_max_port=${PASV_MAX_PORT}" >> /etc/vsftpd/vsftpd.conf
 echo "pasv_min_port=${PASV_MIN_PORT}" >> /etc/vsftpd/vsftpd.conf
